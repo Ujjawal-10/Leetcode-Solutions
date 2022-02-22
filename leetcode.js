@@ -283,7 +283,12 @@ class Solution {
 }
 //====================================================================
 //Leetcode 141. Linked List Cycle
+
 public class Solution {
+    if(head==null ||head.next==null){
+        return false;
+    }
+
     public boolean hasCycle(ListNode head) {
         ListNode slow=head;
         ListNode fast=head;
@@ -299,6 +304,107 @@ public class Solution {
         return false;
         
     }
+}
+//====================================================================
+//Leetcode -237. Delete Node in a Linked List
+
+class Solution {
+    public void deleteNode(ListNode node) {
+        if(node==null){
+            return;
+        }
+        node.val=node.next.val;
+        node.next=node.next.next;
+    }
+}
+//====================================================================
+//Leetcode-19. Remove Nth Node From End of List
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head==null || head.next==null){return null;}
+        
+        ListNode slow=head;
+        ListNode fast=head;
+        
+        for(int i=0;i<n;i++){
+            fast=fast.next;
+        }
+        if (fast==null){return head.next;}
+        
+        while(fast.next!=null){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        slow.next=slow.next.next;
+        return head;
+    }
+}
+//====================================================================
+//Leetcode-25. Reverse Nodes in k-Group
+class Solution {
+    public static ListNode th=null;
+    public static ListNode tt=null;
+    
+   
+    public int sizeofList( ListNode head){
+        ListNode curr=head;
+        int size=0;
+        while(curr!=null){
+            size++;
+            curr=curr.next;
+        }
+        return size;
+    }
+    
+    public void addFirst(ListNode node){
+       if(th==null){
+           th=node;
+           tt=node;
+           
+       }
+        else
+        {
+            node.next=th;
+            th=node;
+        }
+    }
+    
+    public ListNode reverseKGroup(ListNode head, int k) {
+       ListNode oh=null;
+        ListNode ot=null;
+        
+        int length=sizeofList(head);
+        ListNode curr=head;
+        
+        while(length>=k){
+            
+            for(int i=0;i<k ; i++){
+                ListNode save=curr.next;
+                
+                 //remove and add
+                curr.next=null;
+                addFirst(curr);
+                curr=save;   
+            }
+            
+            if(oh==null){
+                oh=th;
+                ot=tt;
+            }
+            else
+            {
+                ot.next=th;
+                ot=tt;
+            }
+            th=null;
+            tt=null;
+            
+            length-=k;
+        }
+        ot.next=curr;
+        return oh;
+    }
+    
 }
 //====================================================================
 

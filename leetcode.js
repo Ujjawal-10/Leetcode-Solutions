@@ -407,4 +407,29 @@ class Solution {
     
 }
 //====================================================================
-
+//gfg- Insert in Middle of Linked List
+class Solution {
+    public Node findmid(Node head){
+        Node slow=head;
+        Node fast=head;
+        
+        while(fast.next!=null && fast.next.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+    
+    public Node insertInMid(Node head, int data){
+        
+        
+        //Insert code here, return the head of modified linked list
+        Node key=new Node(data);
+        Node mid=findmid(head);
+        Node temp=mid.next;
+        mid.next=key;
+        key.next=temp;
+        return head;
+    }
+}
+//====================================================================
